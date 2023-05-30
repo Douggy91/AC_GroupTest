@@ -12,7 +12,7 @@ def get_all_krw(host,port,db):
         if not r.exists(pair[0]):
             r.set(pair[0], json.dumps(pairs_list[-1][1])+":"+json.dumps(pair[1]))
         else:
-            r.append(pair[0],"," + json.dumps(pairs_list[-1][1])+":"+json.dumps(pair[1]))
+            r.append(pair[0],","+"\n" + json.dumps(pairs_list[-1][1])+":"+json.dumps(pair[1]))
 
 # get_all_krw("localhost",6379,0)
 

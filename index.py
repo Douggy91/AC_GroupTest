@@ -9,8 +9,11 @@ headers = {"accept": "application/json"}
 response = requests.get(url, headers=headers)
 json_data = response.json()['data']
 pairs_list = [[key, value] for key, value in json_data.items()]
-print(pairs_list)
+# print(pairs_list)
 
-for pair in pairs_list:
-    print(pair[0], pair[1:])
-# r.set('mydata', json_data)
+for pair in pairs_list[:-1]:
+    r.set(pair[0], json.dumps({pairs_list[-1][1]: pair[1]}))
+
+print(pairs_list[-1][1]) 
+
+

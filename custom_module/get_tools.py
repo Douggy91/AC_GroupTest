@@ -9,7 +9,24 @@ import requests, redis, json, time, math
 # time_val=get_timestamp(math.floor(int(json_data["date"]))/1000)
 
 def get_timestamp(time_val):
-    return time.strftime("%y-%m-%d %H:%M", time.localtime(time_val))
+    return time.strftime("%Y-%m-%d %H:%M:00", time.localtime(time_val))
+
+# def get_all_krw(host,port,db):
+#     r = redis.Redis(host=host, port=port, db=db)
+#     url = "https://api.bithumb.com/public/ticker/ALL_KRW"
+#     headers = {"accept": "application/json"}
+#     response = requests.get(url, headers=headers)
+#     json_data = response.json()['data']
+#     items_list = list(json_data.keys())[:-1]
+#     time_val=math.floor(int(json_data["date"])/1000)
+#     first_item = items_list[0]
+#     last_item = items_list[-1]
+#     r.set("\"datetime\":" + "\""+str(time_val)+ "\"", "\""+first_item+"\"" + ":" +json.dumps(json_data[first_item])+",\n")
+#     for item in items_list[1:-1]:
+#         item_data = json.dumps(json_data[item])
+#         r.append("\"datetime\":" + "\""+str(time_val)+ "\"", "\""+item+"\"" + ":" +item_data+",\n")
+#     r.append("\"datetime\":" + "\""+str(time_val)+ "\"", "\""+last_item+"\"" + ":" +json.dumps(json_data[last_item]))
+
 
 def get_all_krw(host,port,db):
     r = redis.Redis(host=host, port=port, db=db)

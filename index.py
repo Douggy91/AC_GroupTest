@@ -31,5 +31,14 @@ def drawing_chart():
     else:
         return render_template('linechart.html')
 
+@app.route('/chart_treemap', methods=['GET', 'POST'])
+def chart_treemap():
+    if request.method == 'POST':
+        target_column = request.form['target_column']
+        data, item = getkrw.making_treemap_chart(target_column, df_all)
+        return render_template('treemap.html', target_data=data, target_item = item)
+    else:
+        return render_template('treemap.html')
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=7710)  

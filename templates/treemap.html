@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AC_Testing_O</title>
+    <title>AC_Testing_T</title>
     <style>
         table th {
             font-weight: normal;
@@ -125,7 +125,7 @@
                     <li><a href="/chart_treemap">트리맵</a></li>
                   </ul>              
                 <div id="form_div" style="text-align: center">   
-                   <form action="/linechart" method="post">
+                   <form action="/chart_treemap" method="post">
                     <select name="target_column" id="columns">
                       <option value="opening_price">opening_price</option>
                       <option value="closing_price">closing_price</option>
@@ -139,13 +139,6 @@
                       <option value="fluctate_24H">fluctate_24H</option>
                       <option value="fluctate_rate_24H">fluctate_rate_24H</option>
                     </select>
-                    <select name="target_chart" id="target_chart">
-                        <option value="bar">bar</option>
-                        <option value="line">line</option>
-                        <option value="doughnut">doughnut</option>
-                        <option value="polarArea">polarArea</option>
-                    </select>
-                    <input type="text" name="target_item" id="target_item" />
                     <input type="submit" value="submit" />
                    </form>
                 </div> 
@@ -154,17 +147,35 @@
             <canvas id="myChart"></canvas>        
         </div>                          
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.0/dist/chartjs-chart-treemap.js"></script>
         <script>
             var target_data = {{ target_data|safe }};
-            // var target_time = {{ target_time|safe }};
             var target_item = {{ target_item|safe }};
-            var target_chart = {{ target_chart|safe }};
             console.log(target_data);
             const ctx = document.getElementById('myChart');
-            var config = { type: target_chart , data: { labels: target_item , datasets : [] }};
-            let data_array = [];            
-            target_item.forEach(item => {data_array.push(target_data[item])});
-            config.data.datasets.push({ data : data_array });
+            var config = { 
+                type: "treemap" , 
+                data: { 
+                    datasets : [{ 
+                        tree: target_data, 
+                        key: "tree", 
+                        groups: ['label'],
+                        labels: {
+                            align: 'left',
+                            display: true,
+                            formatter(ctx) {
+                                if (ctx.type !== 'data') {
+                                    return;
+                                }
+                                return [ctx.raw._data.label, ctx.raw.v];
+                            },
+                            color: ['white', 'whiteSmoke'],
+                            font: [{size: 20, weight: 'bold'}, {size: 12}],
+                            position: 'top'
+                        }
+                    }]
+                },
+            };
             new Chart(ctx, config);
         </script>
     </div>    

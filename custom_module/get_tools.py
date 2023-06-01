@@ -90,11 +90,31 @@ def making_other_chart(target_column, target_item, df_all):
     data={}
     for item_d in target_item:
         item_data= df_target[df_target['items']==item_d][target_column]
-        i_min = item_data.min()
-        i_max = item_data.max()
-        print(type(i_min), type(i_max))
-        item_data = item_data.map(lambda x: round((x - i_min)/(i_max-i_min),3)*100)
-        print(item_data)
+        # i_min = item_data.min()
+        # i_max = item_data.max()
+        # print(type(i_min), type(i_max))
+        # item_data = item_data.map(lambda x: round((x - i_min)/(i_max-i_min),3)*100)
+        # print(item_data)
         data[item_d] = item_data.mean()
     data = json.dumps((data))
     return data, time, item
+
+def making_treemap_chart(target_column, df_all):
+    df_target = df_all.set_index('items').loc[:,[target_column, 'datetime']]
+    df_target[target_column] = df_target[target_column].map(lambda x: float(x))
+    df_target['datetime'] = df_target['datetime'].map(lambda x: str(x).split(".")[0])
+    df_target = df_target.sort_values('datetime', ascending=True).reset_index().set_index('datetime')
+    print(df_target)
+    # print(df_target["items"].unique())
+    item = list(df_target["items"].unique())
+    data_all=[]
+    for item_d in item:
+        data={}
+        item_data= df_target[df_target['items']==item_d][target_column]
+        data["tree"] = round(item_data.mean(),3)
+        data["label"] = item_d
+        data_all.append(data)
+
+    data = json.dumps((data_all))
+    print(data)
+    return data, item

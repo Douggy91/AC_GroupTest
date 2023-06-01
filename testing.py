@@ -85,4 +85,27 @@ def making_other_chart(target_column, target_item, df_all):
     data = json.dumps((data))
     return data, time, item
 
-print(making_other_chart('closing_price', 'BTC,ETH', df_all))
+# print(making_other_chart('closing_price', 'BTC,ETH', df_all))
+
+
+def making_treemap_chart(target_column, df_all):
+    df_target = df_all.set_index('items').loc[:,[target_column, 'datetime']]
+    df_target[target_column] = df_target[target_column].map(lambda x: float(x))
+    df_target['datetime'] = df_target['datetime'].map(lambda x: str(x).split(".")[0])
+    df_target = df_target.sort_values('datetime', ascending=True).reset_index().set_index('datetime')
+    print(df_target)
+    # print(df_target["items"].unique())
+    item = list(df_target["items"].unique())
+    data_all=[]
+    for item_d in item:
+        data={}
+        item_data= df_target[df_target['items']==item_d][target_column]
+        data["tree"] = round(item_data.mean(),3)
+        data["label"] = item_d
+        data_all.append(data)
+
+    data = json.dumps((data_all))
+    print(data)
+    return data, item
+
+making_treemap_chart('closing_price', df_all)   

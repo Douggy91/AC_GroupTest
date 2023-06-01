@@ -117,6 +117,10 @@
                       <option value="fluctate_24H">fluctate_24H</option>
                       <option value="fluctate_rate_24H">fluctate_rate_24H</option>
                     </select>
+                    <select name="target_chart" id="target_chart">
+                        <option value="bar">bar</option>
+                        <option value="line">line</option>
+                    </select>
                     <input type="text" name="target_item" id="target_item" />
                     <input type="submit" value="submit" />
                    </form>
@@ -130,10 +134,11 @@
             var target_data = {{ target_data|safe }};
             var target_time = {{ target_time|safe }};
             var target_item = {{ target_item|safe }};
+            var target_chart = {{ target_chart|safe }};
             console.log(target_data);
             console.log(target_time);
             const ctx = document.getElementById('myChart');
-            var config = { type: 'line' , data: { labels: target_item , datasets : [] }};
+            var config = { type: target_chart , data: { labels: target_item , datasets : [] }};
             target_item.forEach(item => {
                         config.data.datasets.push({ label : item, data : target_data[item]})
                     });

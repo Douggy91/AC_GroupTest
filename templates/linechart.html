@@ -41,7 +41,7 @@
         }
         
         #container #footer input {
-            background: #fc9d4a;
+            background: #ff8a8a;
             border-color:#fc9d4a;
             margin-top:80px;
         }
@@ -68,22 +68,7 @@
             padding: 20px;
             text-align: center;
         }
-        
-        #nav{
-          list-style:none;
-          margin:0;
-          padding:0;
-          text-align: center;
-        }
-        #nav li{
-          display: inline;
-        }
-        #nav a{
-          display: inline-block;
-          color: white;
-          text-align: center;
-          padding: 14px 16px;
-        }
+
         @font-face {
             font-family: 'DungGeunMo';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
@@ -112,18 +97,13 @@
     <title>서비스</title>
     
 </head>
-  <body style="font-family: 'DungGeunMo'; background-color: #fc9d4a">
+  <body style="font-family: 'DungGeunMo'; background-color: #f1fcff">
     <div id="container">
         <table>           
               <body>
-                <h2 style="text-align: center">메뉴</h2>               
-                <ul id="nav">
-                  <li><a href="/linechart">종목 별 차트</a></li>
-                  <li><a href="/chart_realtime">실시간 매출누적</a></li>
-                  <li><a href="/chart_daytime">메뉴 별 판매현황</a></li>
-                  <li><a href="/chart_monthtime">월별 매출정산</a></li>
-                </ul>
-                <form action="/linechart" method="post">
+                <h2 style="text-align: center;margin-top: 15px;">Bithumb Chart</h2>            
+                <div id="form_div" style="text-align: center">   
+                   <form action="/linechart" method="post">
                     <select name="target_column" id="columns">
                       <option value="opening_price">opening_price</option>
                       <option value="closing_price">closing_price</option>
@@ -139,7 +119,8 @@
                     </select>
                     <input type="text" name="target_item" id="target_item" />
                     <input type="submit" value="submit" />
-                    </form>
+                   </form>
+                </div> 
             </body>  
         <div>
             <canvas id="myChart"></canvas>        

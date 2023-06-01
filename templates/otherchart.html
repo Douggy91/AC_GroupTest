@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AC_Testing</title>
+    <title>OAC_Testing</title>
     <style>
         table th {
             font-weight: normal;
@@ -134,16 +134,15 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             var target_data = {{ target_data|safe }};
-            var target_time = {{ target_time|safe }};
+            // var target_time = {{ target_time|safe }};
             var target_item = {{ target_item|safe }};
             var target_chart = {{ target_chart|safe }};
             console.log(target_data);
-            console.log(target_time);
             const ctx = document.getElementById('myChart');
             var config = { type: target_chart , data: { labels: target_item , datasets : [] }};
-            target_item.forEach(item => {
-                        config.data.datasets.push({ label : item, data : target_data[item]})
-                    });
+            let data_array = [];            
+            target_item.forEach(item => {data_array.push(target_data[item])});
+            config.data.datasets.push({ data : data_array });
             new Chart(ctx, config);
         </script>
     </div>    

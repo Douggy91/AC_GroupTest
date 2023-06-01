@@ -21,12 +21,13 @@ def drawing_chart():
         target_column = request.form['target_column']
         target_item = request.form['target_item']
         target_chart = request.form['target_chart']
-        # print(target_column)
-        # print(target_item)
-        data, time, item = getkrw.making_bar_chart(target_column, target_item, df_all)
-        print(target_chart)
-        # print(time)
-        return render_template('linechart.html',  target_data=data, target_time=time, target_item = item, target_chart = json.dumps(target_chart))
+        if (target_chart == 'line') or( target_chart == 'bar'):
+            data, time, item = getkrw.making_bar_chart(target_column, target_item, df_all)
+            print(target_chart)
+            return render_template('linechart.html',  target_data=data, target_time=time, target_item = item, target_chart = json.dumps(target_chart))
+        elif (target_chart == 'doughnut') or (target_chart == 'polarArea'):
+            data, time, item = getkrw.making_other_chart(target_column, target_item, df_all)
+            return render_template('otherchart.html',  target_data=data, target_time=time, target_item = item, target_chart = json.dumps(target_chart))
     else:
         return render_template('linechart.html')
 

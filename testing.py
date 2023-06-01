@@ -60,6 +60,29 @@ def making_bar_chart(target_column, target_item):
     # plt.figure(figsize=(12,3))
     # sns.lineplot(x='datetime', y=target_column, data=df_target)
     # plt.savefig('./static/line.png')
-data, time, item = making_bar_chart('closing_price', 'BTC,ETH')
-print(data)
+# data, time, item = making_bar_chart('closing_price', 'BTC,ETH')
+# print(data)
 # print(df_all.set_index('items').loc[['BTC','ETH'],['closing_price']])
+
+def making_other_chart(target_column, target_item, df_all):
+    target_item=target_item.split(',')
+    df_target = df_all.set_index('items').loc[target_item,[target_column, 'datetime']]
+    df_target[target_column] = df_target[target_column].map(lambda x: float(x))
+    df_target['datetime'] = df_target['datetime'].map(lambda x: str(x).split(".")[0])
+    df_target = df_target.sort_values('datetime', ascending=True).reset_index().set_index('datetime')
+    # print(df_target)
+    item = json.dumps(target_item)
+    time = json.dumps(list(df_target.index.values))
+    data={}
+    for item_d in target_item:
+        item_data= df_target[df_target['items']==item_d][target_column]
+        i_min = item_data.min()
+        i_max = item_data.max()
+        print(type(i_min), type(i_max))
+        item_data = item_data.map(lambda x: round((x - i_min)/(i_max-i_min),3)*100)
+        print(item_data)
+        data[item_d] = item_data.mean()
+    data = json.dumps((data))
+    return data, time, item
+
+print(making_other_chart('closing_price', 'BTC,ETH', df_all))

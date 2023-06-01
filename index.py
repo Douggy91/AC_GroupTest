@@ -46,7 +46,7 @@ app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('linechart.html')
 
 @app.route('/linechart', methods=['GET', 'POST'])
 def drawing_chart():

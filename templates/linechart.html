@@ -148,18 +148,15 @@
         <script>
             var target_data = {{ target_data|safe }};
             var target_time = {{ target_time|safe }};
+            var target_item = {{ target_item|safe }};
             console.log(target_data);
             console.log(target_time);
             const ctx = document.getElementById('myChart');
-            new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: target_time,
-                    datasets: [{
-                        data: target_data,
-                    }]
-                }
-            })
+            var config = { type: 'line' , data: { labels: target_item , datasets : [] }};
+            target_item.forEach(item => {
+                        config.data.datasets.push({ label : item, data : target_data[item]})
+                    });
+            new Chart(ctx, config);
         </script>
     </div>    
 </html>

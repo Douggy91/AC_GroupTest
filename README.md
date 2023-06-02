@@ -12,29 +12,54 @@ Runtime : Docker Engine
 ### Describe
 
 ├── Dockerfile
+
 ├── README.md
+
 ├── data
+
 │   └── dump.rdb
+
 ├── docker-compose.yaml
+
 └── pyweb-app
+
     ├── crawling_data.py
+
     ├── custom_module
+
     │   ├── __pycache__
+
     │   │   └── get_tools.cpython-311.pyc
+
+
     │   └── get_tools.py
+    
     ├── index.py
+
     ├── requirements.txt
+
     └── templates
+
         ├── bubble_chart.html
+
         ├── linechart.html
+
         ├── otherchart.html
+
         └── treemap.html
 
+
+
 /data : crawling_data.py를 통해 수집하는 디렉터리입니다. Redis와 mount됩니다.
+
 /pyweb-app : Flask 코드가 위치한 디렉터리입니다.
+
 /pyweb-app/index.html : Flask 코드입니다.
+
 /pyweb-app/crawling_data.py : bithumb API 호출을 통해 얻은 데이터를 Redis에 적재하는 스크립트입니다.
+
 /pyweb-app/custom_module: middleware 역할을 하는 함수들을 모아놓는 디렉터리입니다.
+
 /pyweb-app/templates : html 페이지가 위치합니다.
 
 ### Web Page
@@ -49,5 +74,7 @@ Runtime : Docker Engine
 ### 실행방법
 
 docker-compose 환경에 맞추어 한 번에 확인하실 수 있도록 설계되었습니다.
+
 시작 디렉터리에서 docker-compose up 명령을 통해 실행합니다.
+
 crawling_data.py는 별도로 host의 crontab에 등록하여 정기적으로 데이터를 모읍니다.

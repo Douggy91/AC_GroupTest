@@ -12,7 +12,3 @@ services:
       - 6379:6379
     volumes:
     - ./data:/data
-  cron:
-    build:
-      context: ./cron
-      dockerfile: Dockerfile

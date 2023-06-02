@@ -52,4 +52,4 @@ def chart_treemap():
         return render_template('treemap.html')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=7710)  
+    app.run(host='0.0.0.0', port=7710, debug=True)  

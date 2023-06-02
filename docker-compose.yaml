@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 7710:7710
+    volumes:
+      - ./pyweb-app:/pyweb3
   redis_db:
     image: redis
     ports:

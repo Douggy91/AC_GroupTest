@@ -121,8 +121,9 @@
               <body>
                 <h2 style="text-align: center;margin-top: 15px;">Bithumb Chart</h2>
                   <ul id="nav">
-                    <li><a href="./linechart">단순 차트</a></li>
+                    <li><a href="./linechart">종목 별 차트</a></li>
                     <li><a href="/chart_treemap">트리맵</a></li>
+                    <li><a href="/bubble_chart">버블 차트</a></li>
                   </ul>              
                 <div id="form_div" style="text-align: center">   
                    <form action="/chart_treemap" method="post">
@@ -179,5 +180,8 @@
             };
             new Chart(ctx, config);
         </script>
+         <li style="margin-top: 50px; text-align: center;"> 
+            선택한 지표에 대한 각 종목들의 비율을 확인하실 수 있는 트리맵입니다.
+         </li>
     </div>    
 </html>

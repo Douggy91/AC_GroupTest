@@ -120,8 +120,9 @@
               <body>
                 <h2 style="text-align: center;margin-top: 15px;">Bithumb Chart</h2>
                   <ul id="nav">
-                    <li><a href="./linechart">단순 차트</a></li>
+                    <li><a href="./linechart">종목 별 차트</a></li>
                     <li><a href="/chart_treemap">트리맵</a></li>
+                    <li><a href="/bubble_chart">버블 차트</a></li>
                   </ul>            
                 <div id="form_div" style="text-align: center">   
                    <form action="/linechart" method="post">
@@ -168,5 +169,9 @@
                     });
             new Chart(ctx, config);
         </script>
+        <li style="margin-top: 50px; text-align: center;"> 
+            원하시는 종목을 입력하시고, 보고싶은 종류의 차트를 선택해주세요.<br>
+            종목은 대문자로, 공백없이 입력해주셔야 합니다.
+        </li>
     </div>    
 </html>

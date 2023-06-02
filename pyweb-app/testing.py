@@ -108,4 +108,44 @@ def making_treemap_chart(target_column, df_all):
     print(data)
     return data, item
 
-making_treemap_chart('closing_price', df_all)   
+# making_treemap_chart('closing_price', df_all)   
+
+def making_detail_chart(df_all,date):
+    # date="2023-06-02 13:00:00"
+    columns = df_all.columns.to_list()[1:-1]
+    items = list(df_all['items'].unique())
+    target_df = df_all[df_all['datetime']==date]
+    target_df.set_index('items', inplace=True)
+    data_send = {}
+    for col in columns:
+        data_send[col]=target_df.loc[:,col].sort_values(ascending=False).head(5).to_dict()
+    return data_send, columns
+
+# print(making_detail_chart(df_all, "2023-06-02 13:00"))
+
+
+
+# 변동가 / 변동률/ 거래량
+# date="2023-06-02 13:00:00"
+def making_bubble_chart(df_all):
+    columns = ["items","units_traded_24H","acc_trade_value_24H","fluctate_rate_24H"]
+    target_df = df_all[columns].set_index('items')
+    target_df['acc_trade_value_24H'] = target_df['acc_trade_value_24H'].map(lambda x: round((float(x)),3))
+    target_df['fluctate_rate_24H'] = target_df['fluctate_rate_24H'].map(lambda x: round((float(x)),3))
+    target_df['units_traded_24H'] = target_df['units_traded_24H'].map(lambda x: round((float(x)),3))
+    v24 = target_df['acc_trade_value_24H']
+    r24 = target_df['fluctate_rate_24H']
+    u24 = target_df['units_traded_24H']
+    target_df['acc_trade_value_24H'] = target_df['acc_trade_value_24H'].map(lambda x: (x-v24.min())/(v24.max()-v24.min()))
+    target_df['fluctate_rate_24H'] = target_df['fluctate_rate_24H'].map(lambda x: (x-r24.min())/(r24.max()-r24.min()))
+    target_df['units_traded_24H'] = target_df['units_traded_24H'].map(lambda x: (x-u24.min())/(u24.max()-u24.min()))
+    items = list(df_all['items'].unique())
+    data_send = {}
+    for item in items:
+        trade_value=target_df.loc[item,'acc_trade_value_24H'].mean()
+        trade_unit=target_df.loc[item,'units_traded_24H'].mean()
+        flucate_rate=target_df.loc[item,'fluctate_rate_24H'].mean()
+        data_send[item]={"x":round(trade_value,3),"y":round(trade_unit,3),"r":round(flucate_rate,3)}
+    data_send = json.dumps(data_send)
+    return data_send, columns, items  
+print(making_bubble_chart(df_all))

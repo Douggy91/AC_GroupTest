@@ -7,6 +7,8 @@ from flask import Flask, render_template, Response, request, session, redirect, 
 
 r=redis.Redis(host="redis_db", port=6379, db=0)
 df_all = getkrw.get_redis_data(r)
+tt = df_all['datetime'].sort_values(ascending=False).unique()[:20]
+df_all = df_all[df_all['datetime'].isin(tt)]
 
 app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
@@ -50,6 +52,15 @@ def chart_treemap():
             return render_template('treemap.html', target_data=[], target_item = [], message = "종목을 찾을 수 없습니다. \n종목은 대문자로 공백없이 입력해주세요.")
     else:
         return render_template('treemap.html')
+
+@app.route('/bubble_chart', methods=['GET', 'POST'])
+def draw_bubble_chart():
+    try:
+        data, columns, items = getkrw.making_bubble_chart(df_all)
+        return render_template('bubble_chart.html', target_data=data, target_column=columns, target_item=items)
+    except Exception as e:
+            print(e)
+            return render_template('bubble_chart.html', target_data=[], message = "종목을 을 수 없습니다. \n종목은 대문자로 공백없이 입력해주세요.")        
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=7710, debug=True)  

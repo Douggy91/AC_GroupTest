@@ -20,4 +20,4 @@ def get_all_krw(host,port,db):
     r.append("\"datetime\":" + "\""+time_val.replace("\"","")+ "\"", "\""+last_item+"\"" + ":" +json.dumps(json_data[last_item]))
 
     
-getkrw.get_all_krw("redis_db", 6379, 0)
+getkrw.get_all_krw("localhost", 6379, 0)

@@ -142,18 +142,26 @@
             
             var config = { type: 'bubble',
                 data: {
-                    labels: target_item,
+                    // labels: target_item,
                     datasets: [
                         
                     ]
-                }
+                },
+                options: {
+                    legend: {
+                        display: false,
+                        position: 'bottom',
+                }}
             };
-            let data_get=[];
+            // let data_get=[];
             target_item.forEach(item => {
                         // config.data.datasets.push({label:item,data: target_column[item]}); 
+                        let data_get=[];
                         data_get.push(target_data[item])
+                        config.data.datasets.push({data :data_get, label: item});
                     });
-            config.data.datasets.push({data :data_get});
+            
+            // config.data.datasets.push({data :data_get});
             new Chart(ctx, config);
         </script>
         <li style="margin-top: 50px; text-align: center;"> 

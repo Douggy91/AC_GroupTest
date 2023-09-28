@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ac-webapp
+  namespace: argocd
+  labels:
+    app: deploy-ac
+spec:
+  rules:
+    - host: ac-webapp.cluster.hmall.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: deploy-ac
+                port:
+                  number: 7710
+  tls:
+  - {}

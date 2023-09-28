@@ -5,11 +5,13 @@ from custom_module import get_tools as getkrw
 from flask import Flask, render_template, Response, request, session, redirect, url_for, make_response, jsonify
 
 
-r=redis.Redis(host="redis_db", port=6379, db=0)
+r=redis.Redis(host="localhost", port=6379, db=0)
 df_all = getkrw.get_redis_data(r)
-tt = df_all['datetime'].sort_values(ascending=False).unique()[:20]
-df_all = df_all[df_all['datetime'].isin(tt)]
-
+try:
+    tt = df_all['datetime'].sort_values(ascending=False).unique()[:20]
+    df_all = df_all[df_all['datetime'].isin(tt)]
+except:
+    print("아직 데이터가 없습니다.")
 app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = 'static/uploads'

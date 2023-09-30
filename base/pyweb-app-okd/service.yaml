@@ -9,19 +9,10 @@ spec:
     app: deploy-ac
   ports:
     - port: 80
+      name: webserver
       targetPort: 7710
       protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-db
-  namespace: argocd
-spec:
-  type: ClusterIP
-  selector:
-    app: deploy-ac
-  ports:
     - port: 6379
+      name: redis-db
       targetPort: 6379
       protocol: TCP

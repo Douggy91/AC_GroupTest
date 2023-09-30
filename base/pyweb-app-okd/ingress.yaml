@@ -1,0 +1,18 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: ac-webapp
+  namespace: test-app
+  labels:
+    argocd.argoproj.io/instance: test-app
+spec:
+  host: ac-webapp.cluster.hmall.com
+  to:
+    kind: Service
+    name: deploy-ac
+    weight: 100
+  port:
+    targetPort: 7710
+  tls:
+    termination: edge
+  wildcardPolicy: None

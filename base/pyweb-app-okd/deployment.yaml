@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-ac
+  namespace: argocd
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  selector:
+    matchLabels:
+      app: deploy-ac
+  template:
+    metadata:
+      labels:
+        app: deploy-ac
+    spec:
+      containers:
+        - name: deploy-ac
+          image: nexus.cluster.hmall.com:5000/ac-webapp:1.0
+          ports:
+            - containerPort: 7710
+        - name: redis-db
+          image: nexus.cluster.hmall.com:5000/redis:latest
+          ports:
+            - containerPort: 6379

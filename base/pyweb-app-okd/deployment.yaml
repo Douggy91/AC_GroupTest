@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: deploy-ac
-          image: nexus.cluster.hmall.com:5000/ac-webapp:1.0
+          image: nexus.cluster.hmall.com:5000/ac-webapp:1.1
           ports:
             - containerPort: 7710
         - name: redis-db

@@ -26,7 +26,7 @@ spec:
             - containerPort: 7710
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: redis-db
   namespace: argocd
@@ -53,3 +53,9 @@ spec:
             - containerPort: 6379
           securityContext:
             privileged: true
+          volumeMounts:
+            - name: rdb
+            - mountPath: /data
+      volumes:
+        - name: rdb
+          emptyDir: {}

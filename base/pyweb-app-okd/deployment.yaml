@@ -27,3 +27,5 @@ spec:
           image: nexus.cluster.hmall.com:5000/redis:latest
           ports:
             - containerPort: 6379
+          securityContext:
+            privileged: true

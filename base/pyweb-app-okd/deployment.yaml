@@ -55,7 +55,7 @@ spec:
             privileged: true
           volumeMounts:
             - name: rdb
-            - mountPath: /data
+              mountPath: "/data"
       volumes:
         - name: rdb
           emptyDir: {}

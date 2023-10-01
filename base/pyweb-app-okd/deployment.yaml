@@ -24,6 +24,29 @@ spec:
           image: nexus.cluster.hmall.com:5000/ac-webapp:1.1
           ports:
             - containerPort: 7710
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-db
+  namespace: argocd
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  selector:
+    matchLabels:
+      app: redis-db
+  template:
+    metadata:
+      labels:
+        app: redis-db
+    spec:
+      serviceAccountName: test-app
+      containers:
         - name: redis-db
           image: nexus.cluster.hmall.com:5000/redis:latest
           ports:

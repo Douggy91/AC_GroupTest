@@ -5,7 +5,7 @@ from custom_module import get_tools as getkrw
 from flask import Flask, render_template, Response, request, session, redirect, url_for, make_response, jsonify
 
 
-r=redis.Redis(host="localhost", port=6379, db=0)
+r=redis.Redis(host="redis-db", port=6379, db=0)
 df_all = getkrw.get_redis_data(r)
 try:
     tt = df_all['datetime'].sort_values(ascending=False).unique()[:20]

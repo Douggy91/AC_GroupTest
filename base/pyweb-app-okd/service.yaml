@@ -8,7 +8,7 @@ spec:
   selector:
     app: deploy-ac
   ports:
-    - port: 80
+    - port: 7710
       name: webserver
       targetPort: 7710
       protocol: TCP

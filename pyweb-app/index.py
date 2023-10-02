@@ -21,6 +21,11 @@ def index():
 
 @app.route('/linechart', methods=['GET', 'POST'])
 def drawing_chart():
+    try:
+        tt = df_all['datetime'].sort_values(ascending=False).unique()[:20]
+        df_all = df_all[df_all['datetime'].isin(tt)]
+    except:
+        print("아직 데이터가 없습니다.")
     if request.method == 'POST':
         target_column = request.form['target_column']
         target_item = request.form['target_item']

@@ -35,8 +35,7 @@ spec:
   updateStrategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 2
-      maxUnavailable: 1
+      partition: 1
   selector:
     matchLabels:
       app: redis-db

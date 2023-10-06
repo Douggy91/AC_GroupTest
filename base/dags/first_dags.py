@@ -16,7 +16,7 @@ args = {'owner':'douglas kim'}
 
 with DAG(dag_id = 'get_bithumb_api',
     default_args=args,
-    start_date=datetime(2023, 10, 1, 13, 25) ,
+    start_date=datetime(2023, 10, 6, 15, 25) ,
     schedule_interval='0 * * * *') as dag:
 
 # start_date는 작업을 시작할 일자를 표시하여 

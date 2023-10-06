@@ -55,6 +55,15 @@ spec:
           volumeMounts:
             - name: rdb
               mountPath: "/data"
-      volumes:
-        - name: rdb
-          emptyDir: {}
+  volumeClaimTemplates:
+    - kind: PersistentVolumeClaim
+      apiVersion: v1
+      metadata:
+        name: rdb
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        volumeMode: Filesystem

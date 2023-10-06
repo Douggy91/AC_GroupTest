@@ -26,7 +26,7 @@ with DAG(dag_id = 'get_bithumb_api',
     get_bithumb_api_data = BashOperator(
         task_id='get_bithumb_api_data',
         depends_on_past=False,
-        bash_command='/usr/bin/python3 ./dags/crawling_data.py',
+        bash_command='/usr/bin/python3 /opt/airflow/dags/repo/base/dags/crawling_data.py',
         dag = dag)
 
     get_bithumb_api_data

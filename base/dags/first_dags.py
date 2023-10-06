@@ -7,7 +7,6 @@ import sys     #custom module을 가져오기 위해 추가한 모듈
 
 #sys.path.append('/root/LABs/AC_GroupTest/pyweb-app/')
 
-from custom_module import get_tools as getkrw
 
 
 
@@ -27,7 +26,7 @@ with DAG(dag_id = 'get_bithumb_api',
     get_bithumb_api_data = BashOperator(
         task_id='get_bithumb_api_data',
         depends_on_past=False,
-        bash_command='/usr/bin/python3 ../../pyweb-app/crawling_data.py',
+        bash_command='/usr/bin/python3 ./dags/crawling_data.py',
         dag = dag)
 
     get_bithumb_api_data

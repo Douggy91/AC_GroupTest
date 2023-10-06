@@ -5,7 +5,7 @@ from datetime import datetime
 import sys     #custom module을 가져오기 위해 추가한 모듈
 
 
-#sys.path.append('/root/LABs/AC_GroupTest/pyweb-app/')
+sys.path.append('/opt/airflow/dags/repo/base')
 
 
 
